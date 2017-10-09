@@ -65,4 +65,54 @@ public class RandomWalkTest {
         assertEquals(rw.distance(), 1.0, 1.0E-7);
     }
 
+    /**
+     */
+    @Test
+    public void testRandomWalkDistance10Steps() {
+        RandomWalk rw = new RandomWalk();
+        System.out.println("Testing 10 steps random walk: ");
+        double res = 0.0;
+        for (int i = 0; i < 1000; i++) {
+        	rw.randomWalk(10);
+        	res += rw.distance();
+        	rw.setX(0);
+        	rw.setY(0);
+        }
+        res = res/1000;
+        System.out.println("The average distance after 10 steps is: " + res);
+    }
+    
+    /**
+     */
+    @Test
+    public void testRandomWalkDistance100Steps() {
+        RandomWalk rw = new RandomWalk();
+        System.out.println("Testing 100 steps random walk: ");
+        double res = 0.0;
+        for (int i = 0; i < 1000; i++) {
+        	rw.randomWalk(100);
+        	res += rw.distance();
+        	rw.setX(0);
+        	rw.setY(0);
+        }
+        res = res/1000;
+        System.out.println("The average distance after 100 steps is: " + res);
+    }
+    
+    /**
+     */
+    @Test
+    public void testRandomWalkDistance1000Steps() {
+        RandomWalk rw = new RandomWalk();
+        System.out.println("Testing 1000 steps random walk: ");
+        double res = 0.0;
+        for (int i = 0; i < 1000; i++) {
+        	rw.randomWalk(1000);
+        	res += rw.distance();
+        	rw.setX(0);
+        	rw.setY(0);
+        }
+        res = res/1000;
+        System.out.println("The average distance after 1000 steps is: " + res);
+    }
 }
