@@ -11,8 +11,8 @@ public class HWQUPC_Solution {
 		System.out.print("Please input the number of sites: ");
 		Scanner sc = new Scanner(System.in);		
 		int n = sc.nextInt();	
-		System.out.println("The result of n*log(v)/2 is: " + (int)n/2*Math.log(n));
-		System.out.println("The average number of pair generated to combine " + n + " islated sites is " +count(n)/1000);
+		System.out.println("The result of n*log(n)/2 is: " + (int)n/2*Math.log(n));
+		System.out.println("The average number of pair generated to combine " + n + " isolated sites is " +count(n)/1000);
 	}
 	
 	public static int count(int n) {
