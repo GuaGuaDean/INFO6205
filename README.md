@@ -10,3 +10,6 @@ The average distance after 100 steps is: 9.026532546544143
 
 Testing 1000 steps random walk: 
 The average distance after 1000 steps is: 28.01914388555361
+
+Testing 10000 steps random walk: 
+The average distance after 10000 steps is: 86.63181985192213

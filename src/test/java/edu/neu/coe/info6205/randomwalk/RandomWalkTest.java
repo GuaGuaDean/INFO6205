@@ -115,4 +115,21 @@ public class RandomWalkTest {
         res = res/1000;
         System.out.println("The average distance after 1000 steps is: " + res);
     }
+    
+    /**
+     */
+    @Test
+    public void testRandomWalkDistance10000Steps() {
+        RandomWalk rw = new RandomWalk();
+        System.out.println("Testing 10000 steps random walk: ");
+        double res = 0.0;
+        for (int i = 0; i < 1000; i++) {
+        	rw.randomWalk(10000);
+        	res += rw.distance();
+        	rw.setX(0);
+        	rw.setY(0);
+        }
+        res = res/1000;
+        System.out.println("The average distance after 10000 steps is: " + res);
+    }
 }
