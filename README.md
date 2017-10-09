@@ -13,3 +13,8 @@ The average distance after 1000 steps is: 28.01914388555361
 
 Testing 10000 steps random walk: 
 The average distance after 10000 steps is: 86.63181985192213
+
+Based on the observation, the stance is approximately proportional to sqrt(n), where n is the number of steps.
+
+That's it,
+Nan
