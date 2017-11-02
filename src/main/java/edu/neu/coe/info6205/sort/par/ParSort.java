@@ -7,7 +7,7 @@ class ParSort {
 
     public static int cutoff = 1000;
 
-    public static void sort(int[] array, int from, int to) {
+    public void sort(int[] array, int from, int to) {
         int size = to - from;
         if (size < cutoff) Arrays.sort(array, from, to);
         else {
@@ -43,7 +43,7 @@ class ParSort {
         }
     }
 
-    private static CompletableFuture<int[]> parsort(int[] array, int from, int to) {
+    private CompletableFuture<int[]> parsort(int[] array, int from, int to) {
         return CompletableFuture.supplyAsync(
                 () -> {
                     int[] result = new int[to - from];
