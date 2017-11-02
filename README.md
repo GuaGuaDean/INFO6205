@@ -5,4 +5,3 @@ To sort the array concurrently, we used CompletableFuture interface which submit
 
 About Expriment of optimal CUTOFF
 I tried cutoff value from 20 to 2000 and plotted this graph:
-![alt text](https://github.com/GuaGuaDean/INFO6205/blob/2afae4bc848d7a3fb302b926fb60fe3b2f879265/hw3.png)
