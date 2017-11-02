@@ -9,6 +9,10 @@ public class Main {
         Random random = new Random(0L);
         int[] array = new int[2000];
         for (int i = 0; i < array.length; i++) array[i] = random.nextInt(10000);
+        
+        //int[] array2 = new int[10];
+        //for (int i = 0; i < array2.length; i++) array2[i] = 10-i;        
+      
         ParSort.sort(array, 0, array.length);
         //for (int i : array) System.out.println(i);
         if (array[0]==11) System.out.println("Success!");
