@@ -88,8 +88,8 @@ public class Runner {
 			});
 			
 			cur = list.get(0).calcDistance();
-			if (cur < score) {
-				logger.info("We have a new minimum distance, the score is: " + list.get(0).calcDistance());
+			if (cur < score || gen % 10000 == 0) {
+				logger.info("The minimum score is: " + list.get(0).calcDistance());
 				score = cur;
 			}
 		
