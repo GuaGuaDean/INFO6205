@@ -4,11 +4,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.File;
 import java.io.FileReader;
 
 
 public class Runner {
+	
+	final static Logger logger = Logger.getLogger("GALogger");
+	
 	public static void main (String[] args) {
 		
 		Random rand = new Random();
@@ -54,6 +59,7 @@ public class Runner {
 		
 		int gen = 0;
 		int score = Integer.MAX_VALUE;
+		int cur = score;
 		int originalSize = list.size();
 		
 		while (true) {
@@ -80,7 +86,12 @@ public class Runner {
 				return o1.calcDistance() - o2.calcDistance();
 				}	
 			});
-			System.out.println("The minimum distance is: " + list.get(0).calcDistance());
+			
+			cur = list.get(0).calcDistance();
+			if (cur < score) {
+				logger.info("We have a new minimum distance, the score is: " + list.get(0).calcDistance());
+				score = cur;
+			}
 		
 			// eliminate
 			for (int i = list.size(); i >= originalSize; i--) {
@@ -93,6 +104,10 @@ public class Runner {
 				Chromosome tmp = list.get(y);
 				list.set(y,list.get(p));
 				list.set(p, tmp);
+			}
+			gen++;
+			if (gen % 1000 == 0) {
+				logger.info("This is the " + gen + "th generation");
 			}
 		}
 	

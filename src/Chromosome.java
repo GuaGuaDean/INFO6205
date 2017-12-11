@@ -116,7 +116,7 @@ import java.util.Set;
 			
 			// Generate a random position
 			int pos = rand.nextInt(len);
-			System.out.println(pos);
+			//System.out.println(pos);
 			
 			Set<String> secondHalf = new HashSet<>();
 			for (int x = pos; x < len; x++) {
@@ -151,8 +151,8 @@ import java.util.Set;
 		// Mutation - swap two elements' position
 		public final void mutate() {
 			if (rand.nextDouble() <= mutRate) {
-				System.out.println("We have a mutation");
-				int swapsNo = rand.nextInt(5);
+				//System.out.println("We have a mutation");
+				int swapsNo = rand.nextInt(nodes.length/2);
 				for (int i = swapsNo; i > 0; i--) {
 					int first = rand.nextInt(nodes.length);
 					int second = rand.nextInt(nodes.length);
