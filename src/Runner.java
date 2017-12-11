@@ -26,24 +26,62 @@ public class Runner {
 //						{1, 1000, 1000, 1000, 0}
 //		};
 		
-		// data read from file
+		// data read from file, att48
 		
-		int[][] dist = new int[48][48];
+//		int[][] dist = new int[48][48];
+//		BufferedReader br = null;
+//		String[][] TSP48 = new String[48][48];
+//		int index = 0;
+//		String[] input = new String[48];
+//		for (int i = 1; i <= 48; i++) {
+//			input[i-1] = String.valueOf(i);
+//		}
+		
+//		int[][] dist = new int[17][17];
+//		BufferedReader br = null;
+//		String[][] GR17 = new String[17][17];
+//		int index = 0;
+//		String[] input = new String[17];
+//		for (int i = 1; i <= 17; i++) {
+//			input[i-1] = String.valueOf(i);
+//		}
+
+		int[][] dist = new int[26][26];
 		BufferedReader br = null;
-		String[][] TSP48 = new String[48][48];
+		String[][] FRI26 = new String[26][26];
 		int index = 0;
-		String[] input = new String[48];
-		for (int i = 1; i <= 48; i++) {
+		String[] input = new String[26];
+		for (int i = 1; i <= 26; i++) {
 			input[i-1] = String.valueOf(i);
 		}
 		
 		try {
-			br = new BufferedReader(new FileReader(new File("att48_d.txt")));
+//			br = new BufferedReader(new FileReader(new File("att48_d.txt")));
+//			String str = null;
+//			while ((str=br.readLine())!=null) {
+//				TSP48[index] = str.trim().split("( )+");
+//				for (int i = 0; i < TSP48[index].length; i++) {
+//					dist[index][i] = Integer.parseInt(TSP48[index][i]);
+//				}
+//				index++;
+//			}
+			
+//			br = new BufferedReader(new FileReader(new File("gr17_d.txt")));
+//			String str = null;
+//			while ((str=br.readLine())!=null) {
+//				GR17[index] = str.trim().split("( )+");
+//				for (int i = 0; i < GR17[index].length; i++) {
+//					dist[index][i] = Integer.parseInt(GR17[index][i]);
+//				}
+//				index++;
+//			}
+			
+			br = new BufferedReader(new FileReader(new File("fri26_d.txt")));
 			String str = null;
 			while ((str=br.readLine())!=null) {
-				TSP48[index] = str.trim().split("( )+");
-				for (int i = 0; i < TSP48[index].length; i++) {
-					dist[index][i] = Integer.parseInt(TSP48[index][i]);
+				FRI26[index] = str.trim().split("( )+");
+				for (int i = 0; i < FRI26[index].length; i++) {
+					dist[index][i] = Integer.parseInt(FRI26[index][i]);
 				}
 				index++;
 			}
@@ -62,14 +100,10 @@ public class Runner {
 		int cur = score;
 		int originalSize = list.size();
 		
-		while (true) {
-		
+		while (true) {		
 			// mutate
-			for (Chromosome ch: list) {
-				ch.mutate();
-			}
-		
-			//System.out.println("We finished the mutate");
+			for (Chromosome ch: list) { ch.mutate(); }
+
 			// crossover
 			for (int i = 0; i < originalSize/2; i++) {
 				Chromosome first = new Chromosome(list.get(i));
@@ -78,19 +112,23 @@ public class Runner {
 				list.add(first);
 				list.add(second);
 			}
-			//System.out.println("We finished the crossover");
+
 			// sort
 			Collections.sort(list, new Comparator<Chromosome>(){
 				@Override
 				public int compare(Chromosome o1, Chromosome o2) {
-				return o1.calcDistance() - o2.calcDistance();
+					return o1.calcDistance() - o2.calcDistance();
 				}	
 			});
 			
 			cur = list.get(0).calcDistance();
+			
+			// print out the best score
 			if (cur < score || gen % 10000 == 0) {
-				logger.info("The minimum score is: " + list.get(0).calcDistance());
-				score = cur;
+				score = cur;  logger.info("The minimum score is: " + score);
+				String path = "";
+				for (String node: list.get(0).nodes) { 	path += node + " -> ";  }
+				logger.info("The path is: " + path);
 			}
 		
 			// eliminate
@@ -110,6 +148,8 @@ public class Runner {
 				logger.info("This is the " + gen + "th generation");
 			}
 		}
+		
+
 	
 	}
 }

@@ -149,7 +149,8 @@ import java.util.Set;
 		}
 			
 		// Mutation - swap two elements' position
-		public final void mutate() {
+		public final void mutate() {	
+			// shall we mutate?
 			if (rand.nextDouble() <= mutRate) {
 				//System.out.println("We have a mutation");
 				int swapsNo = rand.nextInt(nodes.length/2);
@@ -170,7 +171,7 @@ import java.util.Set;
 			for (int i = 1; i < nodes.length; i++) {
 				tot += distances[placeToIndex.get(nodes[i-1])][placeToIndex.get(nodes[i])];
 			}
-			return tot;
+			return tot + distances[placeToIndex.get(nodes[nodes.length-1])][placeToIndex.get(nodes[0])];
 		}
 
 		public final boolean isValid() { 

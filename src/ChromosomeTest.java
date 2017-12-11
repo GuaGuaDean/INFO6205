@@ -24,9 +24,7 @@ public class ChromosomeTest {
 		String[] places = {"US", "UK", "CN", "IN", "RS"};
 		Chromosome cs2 = new Chromosome(5, 1.0, 0.5, places, null);
 		places = new String[5];
-		for (int i = 0; i < 5; i++) {
-			places[i] = cs2.nodes[i];
-		}
+		for (int i = 0; i < 5; i++) { places[i] = cs2.nodes[i]; }
 		cs2.mutate();
 		for (String place: places) System.out.print(place + " ");
 		System.out.println();
