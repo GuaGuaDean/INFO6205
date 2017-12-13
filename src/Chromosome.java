@@ -8,6 +8,7 @@ import java.util.Set;
 		// The chromo
 		String[] nodes = null;
 		Map<String, Integer> placeToIndex;
+		Map<Integer, String> indexToPlace;
 		static int[][] distances = null;
 		static Random rand = new Random();
 		StringBuilder chromo; 
@@ -21,9 +22,11 @@ import java.util.Set;
 		public Chromosome(int chromoLen, double mutRate, double crossRate, String[] nodeInput, int[][] distInput) {
 			nodes = new String[nodeInput.length];
 			placeToIndex = new HashMap<>();
+			indexToPlace = new HashMap<>();
 			for (int i = 0; i < nodeInput.length; i++) {
 				nodes[i] = new String(nodeInput[i]);
 				placeToIndex.put(nodes[i], i);
+				indexToPlace.put(i, nodes[i]);
 			}
 			distances = distInput;
 			chromo = new StringBuilder(chromoLen * 4);
@@ -52,21 +55,34 @@ import java.util.Set;
 			this.crossRate = copy.crossRate;
 		}
 
-		// Decode the string
-		public final String decodeChromo() {	
-
-			// Create a buffer
-			decodeChromo.setLength(0);
-			
-			// Loop throught the chromo
-			for (int x=0;x<chromo.length();x+=4) {
-				// Get the
-				int idx = Integer.parseInt(chromo.substring(x,x+4), 2);
-				if (idx < nodes.length) decodeChromo.append(nodes[idx]);
+		// convert place to binary string based on its
+		public final String[] encodeChromo() {
+			String[] bits = new String[nodes.length];
+			for (int i = 0; i < nodes.length; i++) {
+				
+				// find position in total order
+				int index = placeToIndex.get(nodes[i]);
+				String toBits = Integer.toBinaryString(index);
+				
+				// add leading zeros to make a fixed-length binary string
+				int len = Integer.toBinaryString(nodes.length).length();
+				int leadingZeros = len - Integer.toBinaryString(index).length();
+				for (int j = 0; j < leadingZeros; j++) {
+					toBits = "0" + toBits;
+				}
+				bits[i] = toBits;
 			}
-			
-			// Return the string
-			return decodeChromo.toString();
+			return bits;
+		}
+		
+		// Decode the string
+		public final String[] decodeChromo(String[] bits) {	
+			String[] places = new String[bits.length];
+			for (int i = 0; i < bits.length; i++) {
+				int toInteger = Integer.parseInt(bits[i], 2);
+				places[i] = String.valueOf(indexToPlace.get(toInteger));
+			}
+			return places;
 		}
 		
 		// Crossover bits
@@ -176,24 +192,26 @@ import java.util.Set;
 
 		public final boolean isValid() { 
 		
+			String[] bits = {"",""};
+			
 			// Decode our chromo
-			String decodedString = decodeChromo();
+			String[] decodedStrings = decodeChromo(bits);
 			
 			boolean num = true;
-			for (int x=0;x<decodedString.length();x++) {
-				char ch = decodedString.charAt(x);
+			for (int x=0;x < decodedStrings.length;x++) {
+				String ch = decodedStrings[x];
 
 				// Did we follow the num-oper-num-oper-num patter
-				if (num == !Character.isDigit(ch)) return false;
+				//if (num == !Character.isDigit(ch)) return false;
 				
 				// Don't allow divide by zero
-				if (x>0 && ch=='0' && decodedString.charAt(x-1)=='/') return false;
+				//if (x>0 && ch=='0' && decodedString.charAt(x-1)=='/') return false;
 				
-				num = !num;
+				//num = !num;
 			}
 			
 			// Can't end in an operator
-			if (!Character.isDigit(decodedString.charAt(decodedString.length()-1))) return false;
+			//if (!Character.isDigit(decodedString.charAt(decodedString.length()-1))) return false;
 			
 			return true;
 		}

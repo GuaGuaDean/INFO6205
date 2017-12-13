@@ -115,4 +115,32 @@ public class ChromosomeTest {
 			assertTrue(list.get(i-1).calcDistance() <= list.get(i).calcDistance());
 		}
 	}
+	
+	@Test
+	public void testEncode() {
+		String[] places = {"US", "UK", "CN", "IN", "RS"};
+		Chromosome cs2 = new Chromosome(5, 1.0, 0.5, places, null);
+		cs2.nodes = places;
+		String[] bits = cs2.encodeChromo();
+		assertTrue(bits[0].equals("000"));
+		assertTrue(bits[1].equals("001"));
+		assertTrue(bits[2].equals("010"));
+		assertTrue(bits[3].equals("011"));
+		assertTrue(bits[4].equals("100"));
+	}
+	
+	@Test
+	public void testDecode() {
+		String[] places = {"US", "UK", "CN", "IN", "RS"};
+		Chromosome cs2 = new Chromosome(5, 1.0, 0.5, places, null);
+		cs2.nodes = places;
+		String[] bits = cs2.encodeChromo();
+		String[] placesFromDecode = cs2.decodeChromo(bits);
+		assert(placesFromDecode[0].equals(places[0]));
+		assert(placesFromDecode[1].equals(places[1]));
+		assert(placesFromDecode[2].equals(places[2]));
+		assert(placesFromDecode[3].equals(places[3]));
+		assert(placesFromDecode[4].equals(places[4]));
+		assert(placesFromDecode[0].equals(places[0]));
+	}
 }
